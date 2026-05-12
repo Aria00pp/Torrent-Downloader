@@ -65,7 +65,7 @@ jobs:
         run: |
           cd torrents
 
-          # Remove .torrent metadata files – not needed
+          # Remove .torrent metadata files
           rm -f *.torrent
 
           # Helper functions
@@ -83,6 +83,9 @@ jobs:
           for item in *; do
             [ -e "$item" ] || continue
             base="$(basename "$item")"
+
+            # Skip the master README if it accidentally exists as a directory
+            [ "$base" = "README.md" ] && continue
 
             # --- Avoid mv-to-self by using a temporary folder ---
             temp_dir="${base}.tmp"
@@ -107,6 +110,7 @@ jobs:
             # Remove the original uncompressed data
             rm -rf "$original_item"
 
+            # Now create README.md (without polluting the ZIP)
             # Count parts and total size
             part_count=$(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | wc -l)
             total_bytes=0
@@ -196,6 +200,9 @@ jobs:
           done
 
           # --- Create master README inside torrents/ ---
+          # Remove any old file or directory named README.md before writing the new one
+          rm -rf README.md
+
           {
             echo "# 📥 Torrent Downloads"
             echo ""
@@ -227,7 +234,6 @@ jobs:
           git fetch origin "$BRANCH"
           git reset --hard origin/"$BRANCH"
 
-          # The torrents/ folder is still here (untracked), no need to copy
           git add torrents/
           if ! git diff --cached --quiet; then
             git commit -m "Torrent download [skip ci]"
@@ -239,7 +245,6 @@ jobs:
               sleep 5
               git fetch origin "$BRANCH"
               git reset --hard origin/"$BRANCH"
-              # After a failed push the folder might be gone, but we still have GITHUB_WORKSPACE
               git add torrents/
               git diff --cached --quiet || git commit --amend -m "Torrent download [skip ci]"
             done
