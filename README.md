@@ -9,7 +9,7 @@
 
 ---
 
-[English](#-how-to-use) | [فارسی](#-fa-نحوه-استفاده)
+[English](#-how-to-use) | [فارسی](#-نحوه-استفاده-)
 
 ---
 
@@ -84,23 +84,6 @@ All downloads will be saved inside **your** fork – nothing appears in this ori
 
 ---
 
-### 📁 File Structure
-torrents/
-├── README.md ← Master index of all downloads
-├── Big Buck Bunny/
-│ ├── Big Buck Bunny.zip
-│ ├── Big Buck Bunny.z01
-│ ├── Big Buck Bunny.z02
-│ └── README.md ← Download links for this torrent
-└── Ubuntu 24.04/
-├── Ubuntu 24.04.zip
-├── ...
-└── README.md
-
-text
-
----
-
 <br>
 <br>
 
@@ -167,24 +150,5 @@ text
 - دکمه سبز را بزنید.  
   **کل پوشه `torrents/` برای همیشه حذف می‌شود.** بازگشت ندارد.  
   با این کار فضای مخزن شما آزاد می‌شود.
-
----
-
-### 📁 ساختار فایل‌ها
-torrents/
-├── README.md ← فهرست اصلی همه دانلودها
-├── Big Buck Bunny/
-│ ├── Big Buck Bunny.zip
-│ ├── Big Buck Bunny.z01
-│ ├── Big Buck Bunny.z02
-│ └── README.md ← لینک‌های دانلود همین فایل
-└── Ubuntu 24.04/
-├── Ubuntu 24.04.zip
-├── ...
-└── README.md
-
-text
-
----
 
 </div>
