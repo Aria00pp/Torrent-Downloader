@@ -1,12 +1,6 @@
 name: 02 - 🧹 Clean Torrent Downloads
 
-on:
-  workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'Type DELETE to confirm removal of all torrent downloads'
-        required: true
-        default: ''
+on: workflow_dispatch
 
 permissions:
   contents: write
@@ -20,13 +14,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-
-      - name: Verify confirmation
-        run: |
-          if [ "${{ github.event.inputs.confirm }}" != "DELETE" ]; then
-            echo "Confirmation failed. You must type DELETE exactly."
-            exit 1
-          fi
 
       - name: Remove all torrent downloads
         run: |
