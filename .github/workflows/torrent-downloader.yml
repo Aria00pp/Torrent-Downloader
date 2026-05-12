@@ -197,7 +197,7 @@ jobs:
             cd ..
           done
 
-          # --- Create master README for torrents/ ---
+          # --- Create master README inside torrents/ ---
           {
             echo "# 📥 Torrent Downloads"
             echo ""
@@ -205,7 +205,7 @@ jobs:
             echo ""
             echo "| # | Folder | Info |"
             echo "|---|--------|------|"
-          } > torrents/README.md
+          } > README.md
 
           num=0
           while IFS= read -r entry; do
@@ -214,7 +214,7 @@ jobs:
             # Split at the first occurrence of " – "
             link_part="${rest%% –*}"
             info_part="${rest#* – }"
-            echo "| ${num} | ${link_part} | ${info_part} |" >> torrents/README.md
+            echo "| ${num} | ${link_part} | ${info_part} |" >> README.md
           done < /tmp/master_entries.txt
 
           {
@@ -222,7 +222,7 @@ jobs:
             echo "---"
             echo ""
             echo "*Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")*"
-          } >> torrents/README.md
+          } >> README.md
 
       - name: Push to repository
         run: |
@@ -230,9 +230,9 @@ jobs:
           git fetch origin "$BRANCH"
           git reset --hard origin/"$BRANCH"
 
-          # Copy back the torrents folder (the reset might have wiped it)
+          # Copy back our freshly generated torrents (the reset wiped them)
           mkdir -p torrents
-          cp -r /home/runner/work/*/Torrent-Downloader/torrents/* torrents/ 2>/dev/null || true
+          cp -r "$GITHUB_WORKSPACE"/torrents/* torrents/ 2>/dev/null || true
 
           git add torrents/
           if ! git diff --cached --quiet; then
@@ -246,7 +246,7 @@ jobs:
               git fetch origin "$BRANCH"
               git reset --hard origin/"$BRANCH"
               mkdir -p torrents
-              cp -r /home/runner/work/*/Torrent-Downloader/torrents/* torrents/ 2>/dev/null || true
+              cp -r "$GITHUB_WORKSPACE"/torrents/* torrents/ 2>/dev/null || true
               git add torrents/
               git diff --cached --quiet || git commit --amend -m "Torrent download [skip ci]"
             done
