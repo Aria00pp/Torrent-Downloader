@@ -1,0 +1,45 @@
+name: 02 - 🧹 Clean Torrent Downloads
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type DELETE to confirm removal of all torrent downloads'
+        required: true
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Verify confirmation
+        run: |
+          if [ "${{ github.event.inputs.confirm }}" != "DELETE" ]; then
+            echo "Confirmation failed. You must type DELETE exactly."
+            exit 1
+          fi
+
+      - name: Remove all torrent downloads
+        run: |
+          rm -rf torrents/*
+          # Keep the empty folder so the repo structure stays
+          touch torrents/.gitkeep
+
+      - name: Commit and push removal
+        run: |
+          git add torrents/
+          if ! git diff --cached --quiet; then
+            git commit -m "Clean all torrent downloads [skip ci]"
+            git push origin "${GITHUB_REF_NAME}"
+          else
+            echo "Nothing to clean."
+          fi
