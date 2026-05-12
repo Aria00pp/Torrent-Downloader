@@ -1,25 +1,19 @@
-name: 01 - ⏬ Torrent Downloader & Split-ZIP
+name: 02 - 🧹 Clean Torrent Downloads
 
 on:
   workflow_dispatch:
     inputs:
-      magnet_links:
-        description: '🔗 Magnet link(s), one per line'
+      confirm:
+        description: 'Type DELETE to confirm removal of all torrent downloads'
         required: true
-        type: string
-      password:
-        description: '🔒 Password for ZIP encryption (leave blank for none)'
-        required: false
         default: ''
-        type: string
 
 permissions:
   contents: write
 
 jobs:
-  torrent-job:
+  clean:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,230 +21,25 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Configure Git for large files
+      - name: Verify confirmation
         run: |
-          git config --global http.postBuffer 524288000
-          git config --global http.maxRequestBuffer 100M
-          git config --global core.compression 0
-          git config --global pack.windowMemory 256m
-          git config --global pack.packSizeLimit 100m
-          git config --global pack.threads 1
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          if [ "${{ github.event.inputs.confirm }}" != "DELETE" ]; then
+            echo "Confirmation failed. You must type DELETE exactly."
+            exit 1
+          fi
 
-      - name: Install tools
-        run: sudo apt-get update && sudo apt-get install -y aria2 zip jq python3
-
-      - name: Create working folder
-        run: mkdir -p torrents
-
-      - name: Download torrent(s) – all magnets in parallel
-        env:
-          MAGNET_LINKS: ${{ github.event.inputs.magnet_links }}
+      - name: Remove all torrent downloads
         run: |
-          > /tmp/magnets.txt
-          # Read all magnets into an array
-          mapfile -t ALL_MAGNETS < <(echo "$MAGNET_LINKS" | sed '/^$/d')
-          for magnet in "${ALL_MAGNETS[@]}"; do
-            echo "$magnet" >> /tmp/magnets.txt
-          done
+          rm -rf torrents/*
+          # Keep the empty folder so the repo structure stays
+          touch torrents/.gitkeep
 
-          echo "Starting parallel download of ${#ALL_MAGNETS[@]} torrent(s)"
-          aria2c \
-            --dir=torrents \
-            --seed-time=0 \
-            --bt-save-metadata=true \
-            --max-connection-per-server=16 \
-            --split=16 \
-            --min-split-size=1M \
-            --bt-max-peers=100 \
-            --bt-request-peer-speed-limit=0 \
-            --enable-dht=true \
-            --enable-dht6=true \
-            --enable-peer-exchange=true \
-            --bt-enable-lpd=true \
-            --bt-tracker-connect-timeout=10 \
-            --bt-tracker-timeout=30 \
-            --bt-tracker-interval=10 \
-            --disable-ipv6=false \
-            "${ALL_MAGNETS[@]}"
-
-      - name: Process downloads into split ZIPs + README
-        env:
-          ZIP_PASSWORD: ${{ github.event.inputs.password }}
-          REPO_OWNER: ${{ github.repository_owner }}
-          REPO_NAME: ${{ github.event.repository.name }}
-          BRANCH: ${{ github.ref_name }}
+      - name: Commit and push removal
         run: |
-          cd torrents
-          rm -f *.torrent
-
-          # Fixed urlencode (no trailing newline)
-          urlencode() {
-            python3 -c "import urllib.parse, sys; sys.stdout.write(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
-          }
-
-          BASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/raw/refs/heads/${BRANCH}/torrents"
-
-          mapfile -t MAGNETS < /tmp/magnets.txt
-          MAGNET_INDEX=0
-
-          > /tmp/master_entries.txt
-
-          for item in *; do
-            [ -e "$item" ] || continue
-            base="$(basename "$item")"
-            [ "$base" = "README.md" ] && continue
-
-            temp_dir="${base}.tmp"
-            mkdir -p "$temp_dir"
-            mv "$item" "$temp_dir/"
-            mv "$temp_dir" "$base"
-            cd "$base"
-
-            original_item="$(ls)"
-            [ -z "$original_item" ] && { echo "Empty folder: $base"; cd ..; rm -rf "$base"; continue; }
-
-            if [ -n "$ZIP_PASSWORD" ]; then
-              zip -0 -r -P "$ZIP_PASSWORD" -s 45m "${base}.zip" "$original_item"
-              encryption="YES ✅"
-            else
-              zip -0 -r -s 45m "${base}.zip" "$original_item"
-              encryption="NO ❌"
-            fi
-
-            rm -rf "$original_item"
-
-            part_count=$(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | wc -l)
-            total_bytes=0
-            for f in "${base}.zip" "${base}".z[0-9]*; do
-              [ -f "$f" ] && total_bytes=$(( total_bytes + $(stat -c%s "$f") ))
-            done
-            total_mb=$(echo "scale=2; $total_bytes / 1048576" | bc)
-
-            if [ $MAGNET_INDEX -lt ${#MAGNETS[@]} ]; then
-              current_magnet="${MAGNETS[$MAGNET_INDEX]}"
-              MAGNET_INDEX=$((MAGNET_INDEX + 1))
-            else
-              current_magnet="N/A"
-            fi
-
-            {
-              echo "# ${base}"
-              echo ""
-              echo "---"
-              echo ""
-              echo "## 📁 File Information"
-              echo ""
-              echo "| Property | Value |"
-              echo "|----------|-------|"
-              echo "| **File Name** | \`${base}\` |"
-              echo "| **Total Parts** | ${part_count} |"
-              echo "| **Total Size** | ${total_mb} MB |"
-              echo "| **Password Protected** | ${encryption} |"
-              echo "| **Magnet** | \`${current_magnet}\` |"
-              echo ""
-              echo "---"
-              echo ""
-              echo "## ⬇️ Download Links"
-              echo ""
-              echo "> Download **all parts** into the same folder, then open \`${base}.zip\` — the other parts are found automatically."
-              echo ""
-              echo "| # | File | Link |"
-              echo "|---|------|------|"
-            } > README.md
-
-            link_num=0
-            while IFS= read -r -d '' part; do
-              link_num=$((link_num + 1))
-              part_name="$(basename "$part")"
-              part_enc=$(urlencode "$part_name")
-              folder_enc=$(urlencode "$base")
-              raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
-              echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
-            done < <(find . -maxdepth 1 \( -name "${base}.zip" -o -name "${base}.z[0-9]*" \) -print0 | sort -zV)
-
-            {
-              echo ""
-              echo "---"
-              echo ""
-              echo "## 📦 How to Extract"
-              echo ""
-              echo "Download all parts into the **same folder**, then:"
-              echo ""
-              if [ "$encryption" = "YES ✅" ]; then
-                echo "| OS | Steps |"
-                echo "|----|-------|"
-                echo "| **Windows** | Right-click \`${base}.zip\` → *Extract Here* (needs [7-Zip](https://www.7-zip.org/) or WinRAR) → enter password |"
-                echo "| **Mac** | Open with [Keka](https://www.keka.io/) → enter password |"
-                echo "| **Linux** | \`unzip ${base}.zip\` or right-click → Extract → enter password |"
-                echo "| **Android** | Use [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver) → tap \`${base}.zip\` → enter password |"
-              else
-                echo "| OS | Steps |"
-                echo "|----|-------|"
-                echo "| **Windows** | Double-click \`${base}.zip\` — opens in Explorer, WinRAR, or 7-Zip automatically |"
-                echo "| **Mac** | Double-click \`${base}.zip\` — extracts with Archive Utility or The Unarchiver |"
-                echo "| **Linux** | \`unzip ${base}.zip\` or right-click → Extract Here (Ark/File Manager) |"
-                echo "| **Android** | Tap \`${base}.zip\` in your file manager — or use [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver) |"
-              fi
-              echo ""
-              echo "---"
-              echo ""
-              echo "*Downloaded via Torrent Downloader – enjoy!*"
-            } >> README.md
-
-            folder_enc_master=$(urlencode "$base")
-            folder_link="${BASE_URL}/${folder_enc_master}/README.md"
-            echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
-
-            cd ..
-          done
-
-          rm -rf README.md
-
-          {
-            echo "# 📥 Torrent Downloads"
-            echo ""
-            echo "All downloaded torrents are listed below. Click on any folder to see its parts and extraction instructions."
-            echo ""
-            echo "| # | Folder | Info |"
-            echo "|---|--------|------|"
-          } > README.md
-
-          num=0
-          while IFS= read -r entry; do
-            num=$((num + 1))
-            rest="${entry#- }"
-            link_part="${rest%% –*}"
-            info_part="${rest#* – }"
-            echo "| ${num} | ${link_part} | ${info_part} |" >> README.md
-          done < /tmp/master_entries.txt
-
-          {
-            echo ""
-            echo "---"
-            echo ""
-            echo "*Last updated: $(date -u +"%Y-%m-%d %H:%M UTC")*"
-          } >> README.md
-
-      - name: Push to repository
-        run: |
-          BRANCH="${GITHUB_REF_NAME}"
-          git fetch origin "$BRANCH"
-          git reset --hard origin/"$BRANCH"
-
           git add torrents/
           if ! git diff --cached --quiet; then
-            git commit -m "Torrent download [skip ci]"
-            for i in {1..10}; do
-              if timeout 300 git push origin HEAD:"$BRANCH"; then
-                echo "✅ Push successful"
-                break
-              fi
-              sleep 5
-              git fetch origin "$BRANCH"
-              git reset --hard origin/"$BRANCH"
-              git add torrents/
-              git diff --cached --quiet || git commit --amend -m "Torrent download [skip ci]"
-            done
+            git commit -m "Clean all torrent downloads [skip ci]"
+            git push origin "${GITHUB_REF_NAME}"
+          else
+            echo "Nothing to clean."
           fi
