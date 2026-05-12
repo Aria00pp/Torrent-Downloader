@@ -9,11 +9,11 @@
 
 ---
 
-[English](#-how-to-use) | [فارسی](#-نحوه-استفاده-)
+[English](#english) | [فارسی](#fa-نحوه-استفاده)
 
 ---
 
-## 🇬🇧 English
+<h2 id="english">🇬🇧 English</h2>
 
 ### 🔁 First time? Fork this repo
 
