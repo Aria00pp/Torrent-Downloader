@@ -20,17 +20,18 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Remove all torrent downloads
+      - name: Delete entire torrents folder
         run: |
-          rm -rf torrents/*
-          touch torrents/.gitkeep
+          echo "⚠️  This will delete all torrent downloads!"
+          rm -rf torrents
 
       - name: Commit and push removal
         run: |
-          git add torrents/
+          git add -A torrents
           if ! git diff --cached --quiet; then
             git commit -m "Delete all torrent downloads [skip ci]"
             git push origin "${GITHUB_REF_NAME}"
+            echo "✅  All torrents have been deleted."
           else
             echo "Nothing to clean."
           fi
