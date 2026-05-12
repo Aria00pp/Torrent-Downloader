@@ -1,4 +1,4 @@
-name: 01 - ⏬Torrent Downloader & Split-ZIP
+name: Torrent Downloader & Split-ZIP
 
 on:
   workflow_dispatch:
@@ -75,11 +75,9 @@ jobs:
 
           BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/torrents"
 
-          # Read magnets back for possible use in READMEs
           mapfile -t MAGNETS < /tmp/magnets.txt
           MAGNET_INDEX=0
 
-          # Temporary file for master README entries
           > /tmp/master_entries.txt
 
           for item in *; do
@@ -93,16 +91,16 @@ jobs:
             mv "$temp_dir" "$base"
             cd "$base"
 
-            # Inside $base now, the original item is the only content
+            # Original downloaded file/folder (the only one inside)
             original_item="$(ls)"
             [ -z "$original_item" ] && { echo "Empty folder: $base"; cd ..; rm -rf "$base"; continue; }
 
-            # Split and zip (store mode -0 for speed; encrypted if password set)
+            # Split and zip (store mode -0, recursive, split at 45 MB)
             if [ -n "$ZIP_PASSWORD" ]; then
-              zip -0 -P "$ZIP_PASSWORD" -s 45m "${base}.zip" "$original_item"
+              zip -0 -r -P "$ZIP_PASSWORD" -s 45m "${base}.zip" "$original_item"
               encryption="YES ✅"
             else
-              zip -0 -s 45m "${base}.zip" "$original_item"
+              zip -0 -r -s 45m "${base}.zip" "$original_item"
               encryption="NO ❌"
             fi
 
@@ -189,7 +187,7 @@ jobs:
               echo "*Downloaded via Torrent Downloader – enjoy!*"
             } >> README.md
 
-            # Append entry for the master index
+            # Master entry
             folder_enc_master=$(urlencode "$base")
             folder_link="${BASE_URL}/${folder_enc_master}/README.md"
             echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
@@ -211,7 +209,6 @@ jobs:
           while IFS= read -r entry; do
             num=$((num + 1))
             rest="${entry#- }"
-            # Split at the first occurrence of " – "
             link_part="${rest%% –*}"
             info_part="${rest#* – }"
             echo "| ${num} | ${link_part} | ${info_part} |" >> README.md
@@ -230,10 +227,7 @@ jobs:
           git fetch origin "$BRANCH"
           git reset --hard origin/"$BRANCH"
 
-          # Copy back our freshly generated torrents (the reset wiped them)
-          mkdir -p torrents
-          cp -r "$GITHUB_WORKSPACE"/torrents/* torrents/ 2>/dev/null || true
-
+          # The torrents/ folder is still here (untracked), no need to copy
           git add torrents/
           if ! git diff --cached --quiet; then
             git commit -m "Torrent download [skip ci]"
@@ -245,8 +239,7 @@ jobs:
               sleep 5
               git fetch origin "$BRANCH"
               git reset --hard origin/"$BRANCH"
-              mkdir -p torrents
-              cp -r "$GITHUB_WORKSPACE"/torrents/* torrents/ 2>/dev/null || true
+              # After a failed push the folder might be gone, but we still have GITHUB_WORKSPACE
               git add torrents/
               git diff --cached --quiet || git commit --amend -m "Torrent download [skip ci]"
             done
