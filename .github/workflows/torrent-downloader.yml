@@ -19,7 +19,7 @@ permissions:
 jobs:
   torrent-job:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -53,7 +53,25 @@ jobs:
             [ -z "$magnet" ] && continue
             echo "$magnet" >> /tmp/magnets.txt
             echo "Downloading: $magnet"
-            aria2c --dir=torrents --seed-time=0 --bt-save-metadata=true "$magnet"
+            # Optimised aria2c settings
+            aria2c \
+              --dir=torrents \
+              --seed-time=0 \
+              --bt-save-metadata=true \
+              --max-connection-per-server=16 \
+              --split=16 \
+              --min-split-size=1M \
+              --bt-max-peers=100 \
+              --bt-request-peer-speed-limit=0 \
+              --enable-dht=true \
+              --enable-dht6=true \
+              --enable-peer-exchange=true \
+              --bt-enable-lpd=true \
+              --bt-tracker-connect-timeout=10 \
+              --bt-tracker-timeout=30 \
+              --bt-tracker-interval=10 \
+              --disable-ipv6=false \
+              "$magnet"
           done
 
       - name: Process downloads into split ZIPs + README
@@ -70,7 +88,7 @@ jobs:
 
           # Helper functions
           urlencode() {
-            python3 -c "import urllib.parse; print(urllib.parse.quote('''$1''', safe=''))"
+            python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
           }
 
           BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/torrents"
@@ -84,7 +102,7 @@ jobs:
             [ -e "$item" ] || continue
             base="$(basename "$item")"
 
-            # Skip the master README if it accidentally exists as a directory
+            # Skip master README leftovers
             [ "$base" = "README.md" ] && continue
 
             # --- Avoid mv-to-self by using a temporary folder ---
@@ -94,7 +112,7 @@ jobs:
             mv "$temp_dir" "$base"
             cd "$base"
 
-            # Original downloaded file/folder (the only one inside)
+            # Original downloaded file/folder
             original_item="$(ls)"
             [ -z "$original_item" ] && { echo "Empty folder: $base"; cd ..; rm -rf "$base"; continue; }
 
@@ -107,11 +125,10 @@ jobs:
               encryption="NO ❌"
             fi
 
-            # Remove the original uncompressed data
+            # Remove original uncompressed data
             rm -rf "$original_item"
 
-            # Now create README.md (without polluting the ZIP)
-            # Count parts and total size
+            # Now create README.md without polluting the ZIP
             part_count=$(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | wc -l)
             total_bytes=0
             for f in "${base}.zip" "${base}".z[0-9]*; do
@@ -153,14 +170,16 @@ jobs:
               echo "|---|------|------|"
             } > README.md
 
+            # Use find to list parts safely (handles spaces)
             link_num=0
-            for part in $(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | sort -V); do
+            while IFS= read -r -d '' part; do
               link_num=$((link_num + 1))
-              part_enc=$(urlencode "$part")
+              part_name="$(basename "$part")"
+              part_enc=$(urlencode "$part_name")
               folder_enc=$(urlencode "$base")
               raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
-              echo "| ${link_num} | \`${part}\` | [Download](${raw_link}) |" >> README.md
-            done
+              echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
+            done < <(find . -maxdepth 1 \( -name "${base}.zip" -o -name "${base}.z[0-9]*" \) -print0 | sort -zV)
 
             {
               echo ""
@@ -200,8 +219,7 @@ jobs:
           done
 
           # --- Create master README inside torrents/ ---
-          # Remove any old file or directory named README.md before writing the new one
-          rm -rf README.md
+          rm -rf README.md   # clean any stray directory
 
           {
             echo "# 📥 Torrent Downloads"
