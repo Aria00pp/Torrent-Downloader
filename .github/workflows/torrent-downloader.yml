@@ -1,4 +1,4 @@
-name: Torrent Downloader & Split-ZIP
+name: 01 - ⏬Torrent Downloader & Split-ZIP
 
 on:
   workflow_dispatch:
