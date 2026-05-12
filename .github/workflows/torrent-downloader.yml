@@ -81,39 +81,42 @@ jobs:
           BRANCH: ${{ github.ref_name }}
         run: |
           cd torrents
+
+          # Remove .torrent metadata files
           rm -f *.torrent
 
-          # --- Bulletproof urlencode (no newline) ---
+          # Helper functions
           urlencode() {
-            printf '%s' "$1" | python3 -c "import urllib.parse, sys; sys.stdout.write(urllib.parse.quote(sys.stdin.read()))"
+            python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
           }
 
-          BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/torrents"
-
-          # Debug info
-          echo "DEBUG: BASE_URL=${BASE_URL}" > /tmp/debug.log
-          echo "DEBUG: REPO_OWNER=${REPO_OWNER}" >> /tmp/debug.log
-          echo "DEBUG: REPO_NAME=${REPO_NAME}" >> /tmp/debug.log
-          echo "DEBUG: BRANCH=${BRANCH}" >> /tmp/debug.log
+          # FIXED: Use the new GitHub raw URL format
+          BASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/raw/refs/heads/${BRANCH}/torrents"
 
           mapfile -t MAGNETS < /tmp/magnets.txt
           MAGNET_INDEX=0
+
           > /tmp/master_entries.txt
 
           for item in *; do
             [ -e "$item" ] || continue
             base="$(basename "$item")"
+
+            # Skip master README leftovers
             [ "$base" = "README.md" ] && continue
 
+            # --- Avoid mv-to-self by using a temporary folder ---
             temp_dir="${base}.tmp"
             mkdir -p "$temp_dir"
             mv "$item" "$temp_dir/"
             mv "$temp_dir" "$base"
             cd "$base"
 
+            # Original downloaded file/folder
             original_item="$(ls)"
             [ -z "$original_item" ] && { echo "Empty folder: $base"; cd ..; rm -rf "$base"; continue; }
 
+            # Split and zip (store mode -0, recursive, split at 45 MB)
             if [ -n "$ZIP_PASSWORD" ]; then
               zip -0 -r -P "$ZIP_PASSWORD" -s 45m "${base}.zip" "$original_item"
               encryption="YES ✅"
@@ -122,8 +125,10 @@ jobs:
               encryption="NO ❌"
             fi
 
+            # Remove original uncompressed data
             rm -rf "$original_item"
 
+            # Now create README.md without polluting the ZIP
             part_count=$(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | wc -l)
             total_bytes=0
             for f in "${base}.zip" "${base}".z[0-9]*; do
@@ -131,6 +136,7 @@ jobs:
             done
             total_mb=$(echo "scale=2; $total_bytes / 1048576" | bc)
 
+            # Magnet for this item
             if [ $MAGNET_INDEX -lt ${#MAGNETS[@]} ]; then
               current_magnet="${MAGNETS[$MAGNET_INDEX]}"
               MAGNET_INDEX=$((MAGNET_INDEX + 1))
@@ -138,7 +144,7 @@ jobs:
               current_magnet="N/A"
             fi
 
-            # Part listing
+            # --- Build README.md inside this folder ---
             {
               echo "# ${base}"
               echo ""
@@ -164,6 +170,7 @@ jobs:
               echo "|---|------|------|"
             } > README.md
 
+            # Use find to list parts safely (handles spaces)
             link_num=0
             while IFS= read -r -d '' part; do
               link_num=$((link_num + 1))
@@ -171,7 +178,6 @@ jobs:
               part_enc=$(urlencode "$part_name")
               folder_enc=$(urlencode "$base")
               raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
-              echo "DEBUG: raw_link for ${part_name}: ${raw_link}" >> /tmp/debug.log
               echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
             done < <(find . -maxdepth 1 \( -name "${base}.zip" -o -name "${base}.z[0-9]*" \) -print0 | sort -zV)
 
@@ -204,15 +210,16 @@ jobs:
               echo "*Downloaded via Torrent Downloader – enjoy!*"
             } >> README.md
 
+            # Master entry
             folder_enc_master=$(urlencode "$base")
             folder_link="${BASE_URL}/${folder_enc_master}/README.md"
-            echo "DEBUG: master folder_link: ${folder_link}" >> /tmp/debug.log
             echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
 
             cd ..
           done
 
-          rm -rf README.md
+          # --- Create master README inside torrents/ ---
+          rm -rf README.md   # clean any stray directory
 
           {
             echo "# 📥 Torrent Downloads"
