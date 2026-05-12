@@ -1,6 +1,12 @@
 name: 02 - 🧹 Clean Torrent Downloads
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      warning:
+        description: '🗑️  This will permanently delete the entire torrents folder and all downloads!  No undo.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -22,7 +28,7 @@ jobs:
 
       - name: Delete entire torrents folder
         run: |
-          echo "⚠️  This will delete all torrent downloads!"
+          echo "🗑️  Removing torrents directory…"
           rm -rf torrents
 
       - name: Commit and push removal
