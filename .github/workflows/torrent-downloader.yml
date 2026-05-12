@@ -81,25 +81,28 @@ jobs:
           BRANCH: ${{ github.ref_name }}
         run: |
           cd torrents
-
           rm -f *.torrent
 
-          # --- Correct urlencode (no trailing newline) ---
+          # --- Bulletproof urlencode (no newline) ---
           urlencode() {
-            python3 -c "import urllib.parse, sys; sys.stdout.write(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
+            printf '%s' "$1" | python3 -c "import urllib.parse, sys; sys.stdout.write(urllib.parse.quote(sys.stdin.read()))"
           }
 
           BASE_URL="https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/torrents"
 
+          # Debug info
+          echo "DEBUG: BASE_URL=${BASE_URL}" > /tmp/debug.log
+          echo "DEBUG: REPO_OWNER=${REPO_OWNER}" >> /tmp/debug.log
+          echo "DEBUG: REPO_NAME=${REPO_NAME}" >> /tmp/debug.log
+          echo "DEBUG: BRANCH=${BRANCH}" >> /tmp/debug.log
+
           mapfile -t MAGNETS < /tmp/magnets.txt
           MAGNET_INDEX=0
-
           > /tmp/master_entries.txt
 
           for item in *; do
             [ -e "$item" ] || continue
             base="$(basename "$item")"
-
             [ "$base" = "README.md" ] && continue
 
             temp_dir="${base}.tmp"
@@ -135,6 +138,7 @@ jobs:
               current_magnet="N/A"
             fi
 
+            # Part listing
             {
               echo "# ${base}"
               echo ""
@@ -167,6 +171,7 @@ jobs:
               part_enc=$(urlencode "$part_name")
               folder_enc=$(urlencode "$base")
               raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
+              echo "DEBUG: raw_link for ${part_name}: ${raw_link}" >> /tmp/debug.log
               echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
             done < <(find . -maxdepth 1 \( -name "${base}.zip" -o -name "${base}.z[0-9]*" \) -print0 | sort -zV)
 
@@ -201,6 +206,7 @@ jobs:
 
             folder_enc_master=$(urlencode "$base")
             folder_link="${BASE_URL}/${folder_enc_master}/README.md"
+            echo "DEBUG: master folder_link: ${folder_link}" >> /tmp/debug.log
             echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
 
             cd ..
