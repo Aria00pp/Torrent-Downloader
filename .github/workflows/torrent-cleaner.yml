@@ -31,7 +31,6 @@ jobs:
       - name: Remove all torrent downloads
         run: |
           rm -rf torrents/*
-          # Keep the empty folder so the repo structure stays
           touch torrents/.gitkeep
 
       - name: Commit and push removal
