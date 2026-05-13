@@ -86,8 +86,14 @@ jobs:
           cd torrents
           rm -f *.torrent
 
+          # Fixed urlencode (no trailing newline)
           urlencode() {
             python3 -c "import urllib.parse, sys; sys.stdout.write(urllib.parse.quote(sys.argv[1], safe=''))" "$1"
+          }
+
+          # Escape special shell glob characters (like brackets)
+          glob_escape() {
+            printf '%s' "$1" | sed 's/\[/\\\[/g; s/\]/\\\]/g; s/\*/\\*/g; s/\?/\\?/g'
           }
 
           BASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/raw/refs/heads/${BRANCH}/torrents"
@@ -121,9 +127,12 @@ jobs:
 
             rm -rf "$original_item"
 
-            part_count=$(ls "${base}.zip" "${base}".z[0-9]* 2>/dev/null | wc -l)
+            # --- Count parts safely (escape special chars) ---
+            base_escaped=$(glob_escape "$base")
+            readarray -d '' part_files < <(find . -maxdepth 1 \( -name "${base_escaped}.zip" -o -name "${base_escaped}.z[0-9]*" \) -print0 | sort -zV)
+            part_count=${#part_files[@]}
             total_bytes=0
-            for f in "${base}.zip" "${base}".z[0-9]*; do
+            for f in "${part_files[@]}"; do
               [ -f "$f" ] && total_bytes=$(( total_bytes + $(stat -c%s "$f") ))
             done
             total_mb=$(echo "scale=2; $total_bytes / 1048576" | bc)
@@ -135,6 +144,7 @@ jobs:
               current_magnet="N/A"
             fi
 
+            # --- Build README.md inside this folder ---
             {
               echo "# ${base}"
               echo ""
@@ -161,14 +171,14 @@ jobs:
             } > README.md
 
             link_num=0
-            while IFS= read -r -d '' part; do
+            for part in "${part_files[@]}"; do
               link_num=$((link_num + 1))
               part_name="$(basename "$part")"
               part_enc=$(urlencode "$part_name")
               folder_enc=$(urlencode "$base")
               raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
               echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
-            done < <(find . -maxdepth 1 \( -name "${base}.zip" -o -name "${base}.z[0-9]*" \) -print0 | sort -zV)
+            done
 
             {
               echo ""
@@ -199,6 +209,7 @@ jobs:
               echo "*Downloaded via Torrent Downloader – enjoy!*"
             } >> README.md
 
+            # Master entry
             folder_enc_master=$(urlencode "$base")
             folder_link="${BASE_URL}/${folder_enc_master}/README.md"
             echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
@@ -206,6 +217,7 @@ jobs:
             cd ..
           done
 
+          # --- Create master README inside torrents/ ---
           rm -rf README.md
 
           {
