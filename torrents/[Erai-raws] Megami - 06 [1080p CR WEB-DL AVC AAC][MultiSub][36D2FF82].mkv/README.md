@@ -1,0 +1,69 @@
+# [Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv
+
+---
+
+## 📁 File Information
+
+| Property | Value |
+|----------|-------|
+| **File Name** | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv` |
+| **Total Parts** | 30 |
+| **Total Size** | 1343.90 MB |
+| **Password Protected** | NO ❌ |
+| **Magnet** | `magnet:?xt=urn:btih:4dcd384fdb68dfbeff5bb6e9627711d3867cd961&dn=%5BErai-raws%5D%20Megami%20~Isekai%20Tensei%20Nani%20ni%20Naritai%20Desu%20ka~%20Ore%20~Yuusha%20no%20Rokkotsu%20de~%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D&tr=http%3A%2F%2Fnyaa.tracker.wf%3A7777%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce` |
+
+---
+
+## ⬇️ Download Links
+
+> Download **all parts** into the same folder, then open `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` — the other parts are found automatically.
+
+| # | File | Link |
+|---|------|------|
+| 1 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z01` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z01) |
+| 2 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z02` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z02) |
+| 3 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z03` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z03) |
+| 4 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z04` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z04) |
+| 5 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z05` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z05) |
+| 6 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z06` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z06) |
+| 7 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z07` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z07) |
+| 8 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z08` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z08) |
+| 9 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z09` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z09) |
+| 10 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z10` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z10) |
+| 11 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z11` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z11) |
+| 12 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z12` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z12) |
+| 13 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z13` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z13) |
+| 14 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z14` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z14) |
+| 15 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z15` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z15) |
+| 16 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z16` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z16) |
+| 17 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z17` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z17) |
+| 18 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z18` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z18) |
+| 19 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z19` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z19) |
+| 20 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z20` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z20) |
+| 21 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z21` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z21) |
+| 22 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z22` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z22) |
+| 23 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z23` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z23) |
+| 24 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z24` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z24) |
+| 25 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z25` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z25) |
+| 26 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z26` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z26) |
+| 27 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z27` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z27) |
+| 28 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z28` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z28) |
+| 29 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.z29` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.z29) |
+| 30 | `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` | [Download](https://github.com/Aria00pp/Torrent-Downloader/raw/refs/heads/main/torrents/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv/%5BErai-raws%5D%20Megami%20-%2006%20%5B1080p%20CR%20WEB-DL%20AVC%20AAC%5D%5BMultiSub%5D%5B36D2FF82%5D.mkv.zip) |
+
+---
+
+## 📦 How to Extract
+
+Download all parts into the **same folder**, then:
+
+| OS | Steps |
+|----|-------|
+| **Windows** | Double-click `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` — opens in Explorer, WinRAR, or 7-Zip automatically |
+| **Mac** | Double-click `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` — extracts with Archive Utility or The Unarchiver |
+| **Linux** | `unzip [Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` or right-click → Extract Here (Ark/File Manager) |
+| **Android** | Tap `[Erai-raws] Megami - 06 [1080p CR WEB-DL AVC AAC][MultiSub][36D2FF82].mkv.zip` in your file manager — or use [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver) |
+
+---
+
+*Downloaded via Torrent Downloader – enjoy!*
