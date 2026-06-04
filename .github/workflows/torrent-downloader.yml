@@ -96,6 +96,11 @@ jobs:
             printf '%s' "$1" | sed 's/\[/\\\[/g; s/\]/\\\]/g; s/\*/\\*/g; s/\?/\\?/g'
           }
 
+          # Escape characters that can break Markdown tables and link labels
+          markdown_escape() {
+            python3 -c 'import sys; sys.stdout.write(sys.argv[1].replace("\\", "\\\\").replace("|", "\\|").replace("[", "\\[").replace("]", "\\]"))' "$1"
+          }
+
           BASE_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/raw/refs/heads/${BRANCH}/torrents"
 
           mapfile -t MAGNETS < /tmp/magnets.txt
@@ -135,7 +140,7 @@ jobs:
             for f in "${part_files[@]}"; do
               [ -f "$f" ] && total_bytes=$(( total_bytes + $(stat -c%s "$f") ))
             done
-            total_mb=$(echo "scale=2; $total_bytes / 1048576" | bc)
+            total_mb=$(python3 -c "import sys; print(f'{int(sys.argv[1]) / 1048576:.2f}')" "$total_bytes")
 
             if [ $MAGNET_INDEX -lt ${#MAGNETS[@]} ]; then
               current_magnet="${MAGNETS[$MAGNET_INDEX]}"
@@ -145,74 +150,74 @@ jobs:
             fi
 
             # --- Build README.md inside this folder ---
+            base_display=$(markdown_escape "$base")
+            magnet_display=$(markdown_escape "$current_magnet")
+
             {
               echo "# ${base}"
               echo ""
               echo "---"
               echo ""
-              echo "## 📁 File Information"
+              echo "## File Information"
               echo ""
               echo "| Property | Value |"
               echo "|----------|-------|"
-              echo "| **File Name** | \`${base}\` |"
-              echo "| **Total Parts** | ${part_count} |"
+              echo "| **File Name** | ${base_display} |"
+              echo "| **Original Magnet** | ${magnet_display} |"
               echo "| **Total Size** | ${total_mb} MB |"
+              echo "| **Total Parts** | ${part_count} |"
               echo "| **Password Protected** | ${encryption} |"
-              echo "| **Magnet** | \`${current_magnet}\` |"
+              echo "| **Status** | Complete (100%) |"
               echo ""
-              echo "---"
-              echo ""
-              echo "## ⬇️ Download Links"
-              echo ""
-              echo "> Download **all parts** into the same folder, then open \`${base}.zip\` — the other parts are found automatically."
+              echo "## Download Links"
               echo ""
               echo "| # | File | Link |"
               echo "|---|------|------|"
             } > README.md
 
             link_num=0
+            folder_enc=$(urlencode "$base")
             for part in "${part_files[@]}"; do
               link_num=$((link_num + 1))
               part_name="$(basename "$part")"
               part_enc=$(urlencode "$part_name")
-              folder_enc=$(urlencode "$base")
+              part_display=$(markdown_escape "$part_name")
               raw_link="${BASE_URL}/${folder_enc}/${part_enc}"
-              echo "| ${link_num} | \`${part_name}\` | [Download](${raw_link}) |" >> README.md
+              echo "| ${link_num} | ${part_display} | [Download](${raw_link}) |" >> README.md
             done
 
             {
               echo ""
-              echo "---"
-              echo ""
-              echo "## 📦 How to Extract"
-              echo ""
-              echo "Download all parts into the **same folder**, then:"
-              echo ""
-              if [ "$encryption" = "YES ✅" ]; then
-                echo "| OS | Steps |"
-                echo "|----|-------|"
-                echo "| **Windows** | Right-click \`${base}.zip\` → *Extract Here* (needs [7-Zip](https://www.7-zip.org/) or WinRAR) → enter password |"
-                echo "| **Mac** | Open with [Keka](https://www.keka.io/) → enter password |"
-                echo "| **Linux** | \`unzip ${base}.zip\` or right-click → Extract → enter password |"
-                echo "| **Android** | Use [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver) → tap \`${base}.zip\` → enter password |"
+              if [ "$part_count" -gt 1 ]; then
+                echo "> Download all parts into the same folder, then open the main \`.zip\` file. The other parts will be found automatically."
               else
-                echo "| OS | Steps |"
-                echo "|----|-------|"
-                echo "| **Windows** | Double-click \`${base}.zip\` — opens in Explorer, WinRAR, or 7-Zip automatically |"
-                echo "| **Mac** | Double-click \`${base}.zip\` — extracts with Archive Utility or The Unarchiver |"
-                echo "| **Linux** | \`unzip ${base}.zip\` or right-click → Extract Here (Ark/File Manager) |"
-                echo "| **Android** | Tap \`${base}.zip\` in your file manager — or use [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver) |"
+                echo "> This download is a single ZIP archive. Download and open the \`.zip\` file."
+              fi
+              echo ""
+              echo "## How to Extract"
+              echo ""
+              echo "| OS | Steps |"
+              echo "|----|-------|"
+              if [ -n "$ZIP_PASSWORD" ]; then
+                echo "| **Windows** | Open the main \`.zip\` file with [7-Zip](https://www.7-zip.org/) or WinRAR, extract it, and enter the password. |"
+                echo "| **Mac** | Open the main \`.zip\` file with [Keka](https://www.keka.io/), extract it, and enter the password. |"
+                echo "| **Linux** | Open the main \`.zip\` file with your archive manager and enter the password. |"
+                echo "| **Android** | Open the main \`.zip\` file with [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver), extract it, and enter the password. |"
+              else
+                echo "| **Windows** | Open the main \`.zip\` file with File Explorer, [7-Zip](https://www.7-zip.org/), or WinRAR, then extract it. |"
+                echo "| **Mac** | Open the main \`.zip\` file with Archive Utility or [Keka](https://www.keka.io/), then extract it. |"
+                echo "| **Linux** | Open the main \`.zip\` file with your archive manager, or use \`unzip\`. |"
+                echo "| **Android** | Open the main \`.zip\` file with your file manager or [ZArchiver](https://play.google.com/store/apps/details?id=ru.zdevs.zarchiver), then extract it. |"
               fi
               echo ""
               echo "---"
               echo ""
-              echo "*Downloaded via Torrent Downloader – enjoy!*"
+              echo "*Created by Torrent Downloader*"
             } >> README.md
 
             # Master entry
-            folder_enc_master=$(urlencode "$base")
-            folder_link="${BASE_URL}/${folder_enc_master}/README.md"
-            echo "- 📂 [**${base}**]($folder_link) – *${part_count} part(s), ${total_mb} MB*" >> /tmp/master_entries.txt
+            folder_link="${BASE_URL}/${folder_enc}/README.md"
+            printf '| [%s](%s) | %s | %s MB |\n' "$base_display" "$folder_link" "$part_count" "$total_mb" >> /tmp/master_entries.txt
 
             cd ..
           done
@@ -221,21 +226,18 @@ jobs:
           rm -rf README.md
 
           {
-            echo "# 📥 Torrent Downloads"
+            echo "# TORRENT DOWNLOADS LIST :"
             echo ""
-            echo "All downloaded torrents are listed below. Click on any folder to see its parts and extraction instructions."
+            echo "Each download below links to its own README with file details, direct download links, and extraction instructions."
             echo ""
-            echo "| # | Folder | Info |"
-            echo "|---|--------|------|"
+            echo "| # | Download | Parts | Total Size |"
+            echo "|---|----------|------:|-----------:|"
           } > README.md
 
           num=0
           while IFS= read -r entry; do
             num=$((num + 1))
-            rest="${entry#- }"
-            link_part="${rest%% –*}"
-            info_part="${rest#* – }"
-            echo "| ${num} | ${link_part} | ${info_part} |" >> README.md
+            echo "| ${num} ${entry}" >> README.md
           done < /tmp/master_entries.txt
 
           {
